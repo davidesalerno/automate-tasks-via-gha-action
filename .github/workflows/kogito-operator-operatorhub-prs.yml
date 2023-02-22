@@ -1,0 +1,29 @@
+name: Kogito Operator Create OperatorHub PRs
+on:
+  push:
+    branches:
+      - kogito
+jobs:
+  create-operatorhub-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out repo
+        uses: actions/checkout@v3
+      - name: Set Environment Variables
+        uses: ./.github/actions/setvars
+        with:
+          varFilePath: ./.github/variables/kogito/operatorhub-prs.env
+      - name: Checking out Kogito Operator
+        uses: actions/checkout@v3
+        with:
+          repository: davidesalerno/kogito-operator
+          ref: automateOperatorHubPRsCreation
+          path: kogito-operator
+      - name: Create PRs via make
+        run: |
+          git config --global user.email "dsalerno@redhat.com"
+          git config --global user.name "Davide Salerno"
+          make create-operatorhub-prs VERSION=${VERSION} GITHUB_AUTHOR=davidesalerno
+        shell: bash
+        working-directory: kogito-operator
+
