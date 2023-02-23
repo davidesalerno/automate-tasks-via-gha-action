@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - kogito
+    paths:
+      - '**/variables/kogito/**.env'
 jobs:
   create-operatorhub-prs:
     runs-on: ubuntu-latest
