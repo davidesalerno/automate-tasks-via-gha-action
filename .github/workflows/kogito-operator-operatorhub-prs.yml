@@ -19,13 +19,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: davidesalerno/kogito-operator
-          ref: automateOperatorHubPRsCreation
+          ref: automateOperatorHubPRsCreationGA
           path: kogito-operator
       - name: Create PRs via make
         run: |
           git config --global user.email "dsalerno@redhat.com"
           git config --global user.name "Davide Salerno"
-          make create-operatorhub-prs VERSION=${VERSION} GITHUB_AUTHOR=davidesalerno
+          make create-operatorhub-prs VERSION=${VERSION} GITHUB_AUTHOR=davidesalerno DRY_RUN=${DRY_RUN}
         shell: bash
         working-directory: kogito-operator
 
